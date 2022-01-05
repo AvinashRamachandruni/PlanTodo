@@ -1,0 +1,153 @@
+<head>
+	<h1>PlanTODO</h1>
+<style>
+table, th, td {
+  border: 1px solid black;
+}
+</style>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+function saveRow() {//same function for both add and edit
+  var taskTable = document.getElementById("mainTable");
+  var task = document.getElementById("newTask");
+  
+  var button = document.getElementById("addButton");
+  var rowNo = button.value;// 0 for new task and rowNo for edit task
+  if(task.value!="")
+  {
+	var row, cell1, cell2;
+	if (rowNo ==0)//add row
+	{
+		row = taskTable.insertRow(1);
+		cell1 = row.insertCell(0);
+		cell2 = row.insertCell(1);
+	}
+	else//edit row
+	{
+		row = taskTable.rows.item(rowNo);
+		cell1 = row.cells.item(0);
+		cell2 = row.cells.item(1);
+	}
+	  
+	cell1.innerHTML = task.value;
+	cell2.innerHTML = '<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>&nbsp;' +
+						'<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>&nbsp;' +
+						'<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>';
+	task.value= "Type here to add as task";
+	button.value=0;
+  }
+  else
+  {
+  alert('Please type a value to add/edit task');
+  } 
+}
+
+function markRow(){
+	$("table tr").off('click').click(function(){ //.off is used to reset the click counter of jquery
+	var taskTable = document.getElementById("mainTable");
+	var selectedRow = taskTable.rows.item(this.rowIndex);
+	var task = selectedRow.cells.item(0);
+	task.innerHTML = "<strike>"+task.innerText+"</strike>";
+	var action = selectedRow.cells.item(1);
+	action.innerHTML = '<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>';
+	});	
+}
+
+function deleteRow(){
+
+	$("table tr").off('click').click(function(){
+	var taskTable = document.getElementById("mainTable");
+	taskTable.deleteRow(this.rowIndex);
+	});	
+}
+
+function editRow(){
+
+$("table tr").off('click').click(function(){
+		
+	var taskTable = document.getElementById("mainTable");
+	var selectedRow = taskTable.rows.item(this.rowIndex);
+	var task = selectedRow.cells.item(0);
+	
+	var inputField  = document.getElementById("newTask");
+	inputField.focus();
+	inputField.value = task.innerText;
+	
+	document.getElementById("addButton").value = this.rowIndex;
+	});	
+
+}
+
+</script>
+</head>
+<body>
+	<input type="textbox" id="newTask" name="newTask" value="Type here to add as task" onfocus= 'this.value=""'>
+	<Button type ="button" id="addButton" name="add" onClick="saveRow()" value=0 >Save Task</Button>
+		
+	</br>
+	<table id="mainTable" style="width:100%">
+		<th style="width:70%">Task</th>
+		<th style="width:30%">Actions</th>
+		<tr>
+			<td>Create Basic HTML</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Create an add task button</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Create actions for edit,delete and mark task buttons</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Use jquery for enable actions and to find row index</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Write logic for all 4 actions</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Verify/Test the logic</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+		<tr>
+			<td>Let others also test the app</td>
+			<td>
+				<Button name="edit" type ="button" onClick="editRow()"> Edit </Button>
+				<Button name="delete" type ="button" onClick="deleteRow()"> Delete </Button>
+				<Button name="markasdone" type ="button" onClick="markRow()"> Mark as done </Button>
+			</td>
+		</tr>
+	</table>
+</body>
+<footer>
+<center>
+<p>Author: <a href="mailto:avinash.ramachandruni@planonsoftware.com">Avinash Ramachandruni</a></p>
+</center>
+</footer>
